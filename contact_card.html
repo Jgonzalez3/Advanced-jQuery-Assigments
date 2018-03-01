@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Card</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+
+        $(document).ready(function(){
+            $('#adduser').one("click", function(){
+                $('form').submit(function(){
+                    var first_name= $('#first_name').val();
+                    var last_name=$('#last_name').val();
+                    var description=$('#description').val();
+                    console.log(first_name,last_name,description);
+                    $('.userbox').append('<div class="usercard"><h1>'+first_name+' '+last_name+'</h1><h5>Click for description!</h5>'+'<div class="descriptioncard">'+description+'</div></div>')
+                    return false;
+                })
+            })
+            $(document).on("click", ".usercard",function(){
+                $(this).children(".descriptioncard").css('display', 'block');
+                $(this).children("h1, h5").css('display', 'none');
+            })
+            $(document).on("dblclick", ".usercard", function(){
+                $(this).children(".descriptioncard").css('display', 'none');
+                $(this).children("h1, h5").css('display', 'block');
+            })
+        })
+    </script>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    .wrapper{
+        width: 800px;
+        margin: 0 auto;
+    }
+    form{
+        width: 300px;
+        margin: 20px 10px;
+        display: inline-block;
+    }
+    input{
+        margin: 10px;
+    }
+    textarea{
+        display: block;
+        margin: 10px;
+    }
+    .userbox{
+        display: inline-block;
+        width: 470px;
+        height: auto;
+        text-align: center;
+        vertical-align: top;
+        padding-top: 15px;
+    }
+    .usercard{
+        height: 100px;
+        width: 450px;
+        vertical-align: top;
+        border: 2px black solid;
+        margin-top: 10px;
+        padding-top: 40px;
+    }
+    h1 {
+        color: red;
+    }
+    .descriptioncard{
+        display: none;
+    }
+    
+</style>
+<body>
+    <div class="wrapper">
+        <form action="process.php" method="post">
+            First Name:<input id="first_name" type="text" value="First Name"> 
+            Last Name:<input id="last_name" type="text" value="Last Name">
+            Description:<textarea id="description" name="description" value="Enter Description" rows="6" cols="32"></textarea>
+            <input id="adduser" type="submit" value="Add User">
+        </form>
+        <div class="userbox"></div>
+    </div>
+</body>
+</html>
